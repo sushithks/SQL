@@ -27,11 +27,11 @@ VALUES
 SELECT
     trip_miles
     tips,
-    RANK() OVER(PARTITION BY CAST (trip miles AS INT64) ORDER BY tips DESC) AS tip rank,
+    RANK() OVER(PARTITION BY CAST (trips miles AS INT64) ORDER BY tips DESC) AS tip rank,
     DENSE_RANK() OVER(PARTITION BY CAST (trip miles AS INT64) ORDER BY tips DESC) AS tip_d_rank,
     ROW_ NUMBER() OVER(PARTITION BY CAST(trip miles AS INT64) ORDER BY tips DESC) AS tip_row_num
 FROM taxi_trips
-WHERE trip miles = 2.0
+WHERE trip_miles = 2.0
     AND tips <= 100
 ORDER BY tips DESC;
 
