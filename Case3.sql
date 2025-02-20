@@ -37,3 +37,10 @@ VALUES
 
 -- Query --
 
+
+select
+	StudentID,
+    FirstName,
+    LastName,
+    ROUND(DATEDIFF(CURDATE(), DateOfBirth )/ 365.25,0) AS Age
+from Students
