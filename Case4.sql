@@ -46,3 +46,18 @@ VALUES
 
 -- Query --
 
+SELECT
+	emp.EmployeeID,
+    emp.FirstName,
+    emp.LastName,
+	GROUP_CONCAT(DISTINCT emp.ManagerID ORDER BY emp.ManagerID SEPARATOR ', ') AS ManagerIDs,
+    GROUP_CONCAT(DISTINCT man.ManagerName  ORDER BY man.ManagerName SEPARATOR ', ') AS ManagerNames
+FROM
+	employees1 emp
+JOIN
+	Managers man on man.ManagerID = emp.ManagerID
+GROUP BY
+	emp.EmployeeID, emp.FirstName, emp.LastName
+HAVING
+	COUNT(DISTINCT(emp.ManagerID)) > 1
+
