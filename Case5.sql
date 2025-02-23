@@ -47,4 +47,15 @@ INSERT INTO Orders (OrderID, OrderDate, CustomerID, TotalAmount) VALUES
 
 ---------------------- Main Query ---------------------
 
+select
+	CustomerID,
+    sum(TotalAmount) as FinalTotalAmount
+from
+	Orders
+where
+	YEAR(OrderDate) = 2023
+GROUP BY
+	CustomerID
+ORDER BY
+	FinalTotalAmount DESC
 
