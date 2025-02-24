@@ -62,6 +62,23 @@ INSERT INTO Salaries (EmployeeID, Salary, SalaryDate) VALUES
 
 
 
+select
+	dep.DepartmentName,
+    emp.Name,
+    max(sal.Salary) as Salary
+from
+	Employees emp
+join
+	Departments dep on emp.DepartmentID = dep.DepartmentID
+join
+	Salaries sal on emp.EmployeeID = sal.EmployeeID
+group by
+	dep.DepartmentName,emp.Name
+
+
+
+
+
 
 
 
