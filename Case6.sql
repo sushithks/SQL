@@ -60,8 +60,6 @@ INSERT INTO Salaries (EmployeeID, Salary, SalaryDate) VALUES
 
 -- Query --
 
-
-
 select
 	dep.DepartmentName,
     emp.Name,
@@ -74,19 +72,4 @@ join
 	Salaries sal on emp.EmployeeID = sal.EmployeeID
 group by
 	dep.DepartmentName,emp.Name
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
