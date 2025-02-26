@@ -36,4 +36,13 @@ VALUES
 (15, 'Sophia', 'Anderson', '2002-06-17');
 
 -- Query --
-ND YEAR(DateOfBirth) < 2002;
+
+
+SELECT
+    StudentID,
+    FirstName,
+    DateOfBirth
+FROM
+    Students
+WHERE
+    LastName IS NULL AND YEAR(DateOfBirth) < 2002;
