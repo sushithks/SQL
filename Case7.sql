@@ -36,3 +36,11 @@ VALUES
 
 -- Query --
 
+SELECT
+    DISTINCT Name
+FROM
+    Students
+WHERE
+    LEFT(Name, 1) NOT IN ('a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U')
+    AND RIGHT(Name, 1) NOT IN ('a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U');
+
