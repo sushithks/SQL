@@ -41,3 +41,15 @@ INSERT INTO Transactions (transaction_id, visit_id, amount) VALUES
 
 -- Query --
 
+
+select
+    customer_id,
+    count(vis.visit_id) as count_of_transactions
+from
+    Visits vis
+left join
+    Transactions trans on vis.visit_id = trans.visit_id
+where
+    transaction_id is null
+group by
+    customer_id
