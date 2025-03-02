@@ -29,3 +29,15 @@ INSERT INTO Weather (id, recordDate, temperature) VALUES
 
 -- Query --
 
+
+SELECT
+    w1.recordDate,
+    (w1.temperature - w2.temperature) as temperature_difference
+FROM
+    weather w1
+JOIN
+    weather w2
+ON
+    w1.recordDate = DATE_ADD(w2.recordDate, INTERVAL 1 DAY)
+WHERE
+    w1.temperature > w2.temperature
