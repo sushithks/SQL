@@ -1,7 +1,7 @@
 -------------------- Question ----------------------
 
 --Imagine you manage a table Students:
---"Students" contains "StudentID" (integer), "FirstName" (string), "LastName" (string), and "DateOfBirth" (date.
+--"Students" contains "StudentID" (integer), "FirstName" (string), "LastName" (string), and "DateOfBirth" (date).
 
 --Devise aquery to find all students whose last name is missing and who were born before the year 2002.
 
