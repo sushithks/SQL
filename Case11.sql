@@ -44,3 +44,33 @@ ON
     B.activity_type = 'end'
 GROUP BY
     A.machine_id;
+
+
+
+
+------------------------- Query 2 --------------------------------
+
+
+WITH start AS (
+    SELECT machine_id, process_id, activity_type, timestamp
+    FROM Activity
+    WHERE activity_type = 'start'
+),
+end AS (
+    SELECT machine_id, process_id ,activity_type ,timestamp
+    FROM Activity
+    WHERE activity_type = 'end')
+
+SELECT
+    t1.machine_id,
+    ROUND(AVG(t2.timestamp - t1.timestamp ),3) AS time
+from
+    start t1
+FROM
+    end t2
+ON
+    t1.machine_id = t2.machine_id AND
+    t1.process_id = t2.process_id
+GROUP BY
+    t1.machine_id
+
