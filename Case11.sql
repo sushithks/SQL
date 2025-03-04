@@ -26,3 +26,21 @@ INSERT INTO Weather (id, recordDate, temperature) VALUES
 (6, '2025-03-05', 25),
 (7, '2025-03-06', 27),
 (8, '2025-03-07', 26);
+
+
+------------------------- Query 1 --------------------------------
+
+SELECT
+    A.machine_id,
+    ROUND(AVG(B.timestamp - A.timestamp), 3) AS processing_time
+FROM
+    Activity A
+JOIN
+    Activity B
+ON
+    A.machine_id = B.machine_id AND
+    A.process_id = B.process_id AND
+    A.activity_type = 'start' AND
+    B.activity_type = 'end'
+GROUP BY
+    A.machine_id;
