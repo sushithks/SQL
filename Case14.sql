@@ -48,3 +48,16 @@ INSERT INTO UnitsSold (product_id, purchase_date, units) VALUES
 
 -- Query --
 
+SELECT
+	pri.product_id,
+	ROUND(IFNULL(SUM(pri.price*uni.units)/SUM(uni.units),0),2) as average_price
+FROM
+	Prices pri
+LEFT JOIN
+	UnitsSold uni
+ON
+	pri.product_id = uni.product_id AND
+	uni.purchase_date BETWEEN pri. start_date AND pri.end_date
+GROUP BY
+pri.product_id
+
