@@ -48,3 +48,15 @@ INSERT INTO Register (contest_id, user_id) VALUES
 (210, 7);
 
 -- Query --
+
+
+SELECT
+   contest_id,
+   round(COUNT(user_id)/ (SELECT COUNT( user_id) FROM users) *100 ,2) AS percentage
+FROM
+    Register
+GROUP BY
+    contest_id
+ORDER BY
+    percentage DESC,
+    contest_id  ASC
