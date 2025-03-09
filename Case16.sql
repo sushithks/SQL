@@ -28,4 +28,17 @@ VALUES
     ('Cat', 'Siamese', 3, 3),
     ('Cat', 'Sphynx', 7, 4);
 
+------------------------- Query 1 --------------------------------
+
+
+select
+    distinct name,
+    round(avg(rating/position) over(partition by name) ,2) as quality,
+    round(avg(case when rating<3 then 1 else 0 end) over(partition by name)*100,2) as poor_query_percentage
+from
+    Animal
+where
+    name is not null
+
+
 
