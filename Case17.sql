@@ -23,4 +23,17 @@ VALUES
 (123, 'US', 'approved', 2000, '2019-01-01'),
 (124, 'DE', 'approved', 2000, '2019-01-07');
 
-------------------------- Query 1 --------------------------------
+------------------------- Query  --------------------------------
+
+select
+	DATE_FORMAT(trans_date, '%Y-%m') AS month,
+    country,
+    count(id) as trans_count ,
+    sum(case when state = 'approved' then 1 else 0 end ) as approved_count,
+    sum(amount) as trans_total_amount ,
+    sum(case when state = 'approved' then amount else 0 end ) as approved_total_amount
+from
+	Transactions
+group by
+	DATE_FORMAT(trans_date, '%Y-%m'),
+    country
