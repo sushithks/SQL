@@ -31,3 +31,19 @@ VALUES
 
 ------------------------- Query 1 --------------------------------
 
+
+
+with main as (
+	select
+		customer_id,
+        min(order_date) as first_order,
+        min(customer_pref_delivery_date) as delivery_date
+	from
+		deliveries
+	group by
+		customer_id
+)
+select
+	AVG(case when first_order = delivery_date then 1 else 0 end ) as immediate_percentage
+from
+	main
