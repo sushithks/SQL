@@ -29,3 +29,21 @@ VALUES
 ------------------------- Query 1 --------------------------------
 
 
+
+WITH f_login AS (
+    SELECT
+        player_id,
+        MIN(event_date) AS first_login
+    FROM
+        Activity
+    GROUP BY
+        player_id
+)
+
+SELECT
+    ROUND(
+        SUM(DATEDIFF(act.event_date, flog.first_login) = 1) / COUNT(DISTINCT act.player_id), 2) AS fraction
+FROM
+    Activity Act
+JOIN
+    f_login flog ON act.player_id = flog.player_id;
