@@ -30,3 +30,20 @@ VALUES
 
 ------------------------- Query  --------------------------------
 
+
+
+SELECT
+    fir.employee_id,
+    fir.name,
+    count(sec.reports_to) as reports_count,
+    ROUND(AVG(sec.age)) as average_age
+FROM
+    employees fir
+JOIN
+    employees sec
+ON
+    fir.employee_id = sec.reports_to
+GROUP BY
+    fir.employee_id
+ORDER BY
+    fir.employee_id
