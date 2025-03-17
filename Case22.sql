@@ -46,3 +46,22 @@ group by
     employee_id
 having count(employee_id) = 1
 
+
+------------------------- Query 2 --------------------------------
+
+select
+    employee_id,
+    department_id
+    from
+        Employee
+    where
+        primary_flag ='Y' or
+        employee_id IN
+            (select
+                employee_id
+            from
+                emp
+            group by
+                employee_id
+            having count(employee_id) = 1
+            )
