@@ -26,3 +26,23 @@ VALUES
     (4, 2, 'N'),
     (4, 3, 'Y'),
     (4, 4, 'N');
+
+------------------------- Query 1 --------------------------------
+
+select
+    employee_id,
+    department_id
+from
+    Employee
+where
+    primary_flag ='Y'
+UNION ALL
+select
+    employee_id,
+    department_id
+from
+    Employee
+group by
+    employee_id
+having count(employee_id) = 1
+
