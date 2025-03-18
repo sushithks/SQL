@@ -61,3 +61,23 @@ VALUES
     (4, 'Laptop', '2025-04-01', 1450.00),
     (5, 'Smartwatch', '2025-05-01', 370.00);
 
+
+------------------------- Query 1 --------------------------------
+
+SELECT
+	employee_id,
+    name,
+    sum(sales_amount) as sales
+FROM
+	sales1 sal
+   join
+	Employee1 emp
+ON
+    emp.id = sal.employee_id
+WHERE
+	sales_date BETWEEN DATE_SUB(CURDATE(), INTERVAL 1 YEAR) AND CURDATE()
+GROUP BY
+    employee_id,
+    name
+HAVING
+	sales > 8000
