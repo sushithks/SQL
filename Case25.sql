@@ -42,4 +42,23 @@ WITH has_price AS (
             WHERE change_date <= DATE('2019-08-16')
             GROUP BY product_id
             )
+),
+no_price as(
+    SELECT
+        DISTINCT product_id,
+        10 AS price
+    FROM
+        Products
+    WHERE
+        product_id NOT IN(
+            SELECT DISTINCT product_id FROM Products
+            WHERE change_date <= DATE('2019-08-16'))
 )
+
+select *
+from
+    has_price
+union
+select *
+from
+    no_price
