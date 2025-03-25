@@ -28,3 +28,24 @@ INSERT INTO persons (person_id, person_name, weight, turn) VALUES
 (1, 'Winston', 500, 6),
 (2, 'Marie', 200, 4);
 
+
+------------------------- Query 1 --------------------------------
+
+with cumulative_sum as(
+    SELECT
+        person_id,
+        person_name,
+        weight,
+        SUM(weight) OVER (ORDER BY turn) AS cumulative_weight
+        FROM persons
+    )
+
+select
+    person_name
+from
+    cumulative_sum
+where
+    cumulative_weight <= 1900
+order by
+    cumulative_weight desc
+limit 1
