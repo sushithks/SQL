@@ -39,3 +39,23 @@ from
 order by
     id
 
+
+------------------------- Query 2 --------------------------------
+
+select
+    firstT.id,
+    case
+        when firstT.id % 2 = 1 and secondT.id is not null then secondT.name
+        when firstT.id % 2 = 0 then thirdT.name
+        else firstT.name
+    end as name
+from
+    Booking firstT
+left join
+    Booking secondT
+on
+    firstT.id = secondT.id - 1
+left join
+    Booking thirdT
+on
+    firstT.id = thirdT.id + 1
