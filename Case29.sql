@@ -76,3 +76,42 @@ INSERT INTO Sales (EmployeeId, SaleDate, Amount) VALUES
 (112, '2024-10-03', 2800.00),  -- Q4
 (112, '2024-11-12', 2900.00),  -- Q4
 (112, '2024-12-25', 2850.00);  -- Q4
+
+
+------------------------- Query  --------------------------------
+
+
+ WITH QuarterlySales AS (
+  SELECT
+    EmployeeId,
+    QUARTER(SaleDate) AS Quarter,
+    SUM(Amount) AS QuarterlyAmount
+  FROM
+    Sales
+  GROUP BY
+    EmployeeId,
+    QUARTER(SaleDate)
+),
+SalesTrend AS (
+  SELECT
+    EmployeeId,
+    Quarter,
+    QuarterlyAmount,
+    LAG(QuarterlyAmount, 1) OVER (PARTITION BY EmployeeId ORDER BY Quarter) AS PrevQuarter1,
+    LAG(QuarterlyAmount, 2) OVER (PARTITION BY EmployeeId ORDER BY Quarter) AS PrevQuarter2,
+    LAG(QuarterlyAmount, 3) OVER (PARTITION BY EmployeeId ORDER BY Quarter) AS PrevQuarter3
+  FROM
+    QuarterlySales
+)
+SELECT
+  EmployeeId,
+  PrevQuarter3 as Quarter1,
+  PrevQuarter2 as Quarter2,
+  PrevQuarter1 as Quarter3,
+  QuarterlyAmount as Quarter4
+FROM
+  SalesTrend
+HAVING
+  QuarterlyAmount > PrevQuarter1
+  AND PrevQuarter1 > PrevQuarter2
+  AND PrevQuarter2 > PrevQuarter3;
