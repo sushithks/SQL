@@ -52,3 +52,33 @@ INSERT INTO MovieRating (movie_id, user_id, rating, created_at) VALUES
 (3, 1, 3, '2020-02-22'),
 (3, 2, 4, '2020-02-25');
 
+
+-- Query --
+
+
+with Huser as(
+    SELECT name
+    FROM
+        Users
+        NATURAL JOIN MovieRating
+    GROUP BY user_id
+    ORDER BY COUNT(*) DESC, name
+    LIMIT 1
+    ),
+Hmovies as (
+    SELECT title
+    FROM
+        Movies
+        NATURAL JOIN MovieRating
+        WHERE YEAR (created_at) = 2020 AND MONTH (created_at) = 2
+    GROUP BY movie_id
+    ORDER BY AVG(rating) DESC, title
+    LIMIT 1
+    )
+
+Select name as results
+from Huser
+UNION ALL
+select title
+from Hmovies
+
