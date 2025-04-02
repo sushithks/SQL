@@ -27,3 +27,19 @@ INSERT INTO Insurance (pid, tiv_2015, tiv_2016, lat, lon) VALUES
 
 
 ------------------------- Query 1 --------------------------------
+
+
+
+
+SELECT ROUND(SUM(tiv_2016),2) AS tiv_2016 FROM
+(
+    SELECT *,
+        COUNT(*) OVER (PARTITION BY tiv_2015) as tiv_count,
+        COUNT(*) OVER (PARTITION BY lat, lon) as loc_count
+    FROM Insurance
+) sub
+WHERE
+    sub.tiv_count >1 AND
+    loc_count = 1
+
+
