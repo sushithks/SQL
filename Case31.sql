@@ -29,3 +29,30 @@ INSERT INTO Customer_02 (customer_id, name, visited_on, amount) VALUES
 (9, 'Jaze', '2019-01-09', 110),
 (1, 'Jhon', '2019-01-10', 130),
 (3, 'Jade', '2019-01-10', 150);
+
+------------------------- Query 1 --------------------------------
+
+
+WITH
+    amount_by_day AS (
+        SELECT visited_on, SUM(amount) AS amount
+        FROM Customer
+        GROUP BY visited_on
+),
+amount_window AS (
+    SELECT
+        visited_on,
+        SUM(amount) OVER (ORDER BY visited_on ROWS BETWEEN 6 PRECEDING AND CURRENT ROW) AS amount
+    FROM amount_by_day
+    ORDER BY visited_on
+    LIMIT 1000
+    OFFSET 6
+)
+
+SELECT
+    visited_on,
+    amount,
+    ROUND(amount / 7, 2) AS average_amount
+FROM
+    amount_window
+
