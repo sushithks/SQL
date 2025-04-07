@@ -41,3 +41,28 @@ INSERT INTO Employee01 (id, name, salary, departmentId) VALUES
 (6, 'Randy', 85000, 1),
 (7, 'Will', 70000, 1);
 
+
+------------------------- Query  --------------------------------
+
+
+WITH ith cte AS (
+    SELECT departmentId AS id,
+           name AS Employee,
+           salary,
+           dense_rank() over(partition BY departmentId ORDER BY salary DESC) AS rnk
+    FROM
+        Employee01
+    ORDER BY
+        id,rnk ASC
+)
+SELECT
+    dep.name AS Department,
+    Employee,
+    salary
+FROM
+    cte
+JOIN
+    Department01 dep ON cte.id = dep.id
+WHERE
+    rnk <= 3
+
