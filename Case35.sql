@@ -25,3 +25,26 @@ INSERT INTO Employees (id, name) VALUES
 (5, 'Janet'),
 (6, 'randy willy'),
 (7, 'Will');
+
+
+
+------------------------- Query  --------------------------------
+
+
+SELECT
+    CASE
+        -- If it's a single name
+        WHEN LOCATE(' ', name) = 0 THEN CONCAT(
+            UPPER(LEFT(name, 1)),
+            LOWER(SUBSTRING(name, 2))
+        )
+        -- If full name
+        ELSE CONCAT(
+            UPPER(LEFT(SUBSTRING_INDEX(name, ' ', 1), 1)),
+            LOWER(SUBSTRING(SUBSTRING_INDEX(name, ' ', 1), 2)),
+            ' ',
+            UPPER(LEFT(SUBSTRING_INDEX(name, ' ', -1), 1)),
+            LOWER(SUBSTRING(SUBSTRING_INDEX(name, ' ', -1), 2))
+        )
+    END AS name
+FROM Employees;
