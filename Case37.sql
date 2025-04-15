@@ -35,7 +35,7 @@ WITH main AS
     (SELECT
         DISTINCT salary
     FROM
-        employee011
+        employee
     ORDER BY
         salary DESC
     limit 2)
