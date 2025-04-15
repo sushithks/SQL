@@ -28,3 +28,23 @@ INSERT INTO employee (id, salary) VALUES
 (10, 70000);
 
 
+
+------------------------- Query  --------------------------------
+
+WITH main AS
+    (SELECT
+        DISTINCT salary
+    FROM
+        employee011
+    ORDER BY
+        salary DESC
+    limit 2)
+
+SELECT
+    CASE
+        WHEN COUNT(*) = 1 THEN  null
+    ELSE
+        (SELECT * FROM main LIMIT 1,1)
+    END AS sal
+FROM
+    main
