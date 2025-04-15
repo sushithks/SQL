@@ -28,3 +28,15 @@ INSERT INTO Activities (sell_date, product) VALUES
 ('2020-05-30', 'T-Shirt');
 
 
+
+------------------------- Query  --------------------------------
+
+
+SELECT
+    sell_date,
+    COUNT( DISTINCT product),
+    GROUP_CONCAT(DISTINCT product ORDER BY product SEPARATOR ',') AS products
+FROM
+    Activities
+GROUP BY
+    sell_date
