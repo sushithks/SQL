@@ -49,3 +49,31 @@ INSERT INTO Orders (product_id, order_date, unit) VALUES
 (5, '2020-02-27', 50),
 (5, '2020-03-01', 50);
 
+
+
+------------------------- Query  --------------------------------
+
+
+
+WITH feb AS(
+	SELECT
+	    product_id,
+	    SUM(unit) AS unit
+	FROM
+	    Orders
+    WHERE
+        MONTH(order_date) = 2 AND YEAR(order_date) = 2020
+    GROUP BY
+        product_id
+    HAVING
+        unit >= 100
+)
+
+SELECT
+    product_name,
+    feb.unit
+FROM
+    Products pro
+JOIN
+    feb USING(product_id)
+
